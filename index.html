@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.box-new {
+				margin: 50px auto;
+				width: 300px;
+				height: auto;
+				border: solid 1px #cccccc;
+			}
+			
+			.Collapsing {
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				cursor: pointer;
+				border-bottom: 1px solid white;
+				text-align: center;
+				background-repeat: no-repeat;
+				background-position: center right no-repeat;
+				background-image: url(images/pro_left.png);
+				background-color: #BDBDBD;
+				color: #fff;
+			}
+			
+			.coll_body {
+				display: none;
+			}
+			
+			.coll_body a {
+				display: block;
+				margin: 10px;
+				text-align: center;
+				background: #ebebeb;
+			}
+			
+			.current {
+				background-image: url(images/pro_down.png);
+			}
+			
+			.box1 {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				background: darkmagenta;
+				clear: both;
+			}
+			
+			.box2 {
+				border-bottom: 1px solid #000000;
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 30%;
+				float: left;
+				background: darkturquoise;
+			}
+			
+			.box3 {
+				float: right;
+				width: 70%;
+				background: gold;
+				/*height: 40px;*/
+				border-bottom: 1px solid #0000FF;
+			}
+			
+			.box3 p {
+				height: 70px;
+				line-height: 70px;
+				margin: 0;
+				text-align: center;
+			}
+			
+			span {
+				text-align: center;
+				width: 40px;
+				height: 20px;
+				background: white;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-left: -20px;
+				margin-top: -10px;
+			}
+			
+			ul li {
+				color: blue;
+			}
+			
+			ul li:nth-of-type(1) {
+				color: pink;
+			}
+		</style>
+	</head>
+	<script src="http://apps.bdimg.com/libs/vue/1.0.14/vue.js" type="text/javascript" charset="utf-8"></script>
+
+	<body>
+		<h1>Hello World</h1>
+		<h1>动态布局</h1>
+		<hr>
+		<div id="app">
+			<!--{{message}}-->
+			<div class="box">
+				<div class="box1" v-for="item in list">
+					<div class="box2">
+						<span>
+							{{item.name}}
+						</span>
+					</div>
+					<div class="box3" v-for="item1 in item.data">
+						<p>
+							{{item1}}
+						</p>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<ul>
+				<li v-for="key in data">{{key}}</li>
+			</ul>
+		</div>
+		<div id="appNew">
+			<div class="box-new">
+				<div v-for="item in list">
+					<h3 class="Collapsing  current">{{item.name}}</h3>
+					<div class="coll_body">
+						<a v-for="val in item.data" href="#">{{val}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: 'hello Vue!',
+					list: [{
+							"name": 'song',
+							'data': [1, 2, 3, 4]
+						},
+						{
+							"name": 'jun',
+							'data': [11, 22, 33, 44]
+						},
+						{
+							"name": 'sk',
+							'data': [11, 22, 33, 44, 55, 77, 88, 99, 100, 101, 102]
+						}
+					],
+					data: [1, 2, 3, 4]
+				}
+			})
+			var app = new Vue({
+				el: '#appNew',
+				data: {
+					message: 'hello Vue!',
+					list: [{
+							"name": 'song',
+							'data': [1, 2, 3, 4]
+						},
+						{
+							"name": 'jun',
+							'data': [11, 22, 33, 44]
+						},
+						{
+							"name": 'sk',
+							'data': [11, 22, 33, 44, 55, 77, 88, 99, 100, 101, 102]
+						}
+					],
+					data: [1, 2, 3, 4]
+				}
+			})
+			$(function() {
+				$(".coll_body").eq(0).show();
+				$(".Collapsing").click(function() {
+					$(this).toggleClass("current").siblings('.Collapsing').removeClass("current"); //切换图标
+					$(this).next(".coll_body").slideToggle(500).siblings(".coll_body").slideUp(500);
+				});
+			});
+		</script>
+	</body>
+
+</html>
